@@ -1,0 +1,10 @@
+
+ver the greatest hack
+
+
+#codecs
+
+import codecs as c
+
+with c.open(-,'encode-utf8') as fp:
+	fp.read()
