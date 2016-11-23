@@ -8,3 +8,24 @@ import codecs as c
 
 with c.open(-,'encode-utf8') as fp:
 	fp.read()
+
+#  __str__ "to string"
+
+
+# __repr__
+
+def __rept__(self):
+	repr = "<Persona name = {} at {}>"
+	mem = hex(id(self))
+	return repr.format(self.name, mem)
+
+function()
+__call__
+l[3] 
+__setitem__
+__getitem__
+l[3:]
+__slice__
+o.x()
+__getattr__
+
