@@ -95,6 +95,97 @@ def busqueda_reversa(dic, nro):
             return name
 
 
+"""
 val = mapeo("cosa")
 print val
 print busqueda_reversa(val, 2)
+"""
+
+
+def invitados(dic):
+    dic_aux = dic
+    for name, estado in dic_aux.iteritems():
+        if estado == "No asistira":
+            del dic_aux[name]
+    return  dic_aux
+
+
+class Puerta(object):
+    """Una puerta"""
+
+    def __init__(self, combinacion):
+        self.combinacion = combinacion
+        self.estado = "Abierta"
+
+    def cerrar(self):
+        self.estado = "Cerrada"
+
+    def abrir(self):
+        self.estado = "Abierta"
+
+    def cambiar_combinacion(self, comb_actual, comb_nueva):
+        if self.combinacion == comb_actual:
+            self.combinacion = comb_nueva
+
+
+"""Jerarquia de Clases"""
+
+
+class Curso(object):
+    """Un curso"""
+
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+
+class CursoVerano(Curso):
+    """Un Curso de Verano"""
+
+    def __init__(self, nombre):
+        super(CursoVerano, self).__init__(nombre)
+
+
+class CursoGratuito(Curso):
+    """Un Curso Gratuito"""
+
+    def __init__(self, nombre):
+        super(CursoGratuito, self).__init__(nombre)
+
+
+class Persona(object):
+    """Una Persona"""
+
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+
+class Alumno(Persona):
+    """Un Alumno"""
+
+    def __init__(self, nombre, legajo):
+        super(Alumno, self).__init__(nombre)
+        self.legajo = legajo
+
+
+class AlumnoTemporal(Alumno):
+    """Un Alumno Temporal"""
+
+    def __init__(self, nombre, legajo):
+        super(AlumnoTemporal, self).__init__(nombre, legajo)
+        self.cursos = []
+
+    def agregar_curso(self, CursoVerano):
+        self.cursos.append(CursoVerano)
+
+
+class Empleado(Persona):
+    """Un Empleado"""
+
+    def __init__(self, nombre):
+        super(Empleado, self).__init__(nombre)
+        self.cursos = []
+
+    def agregar_curso(self, CursoGratuito):
+        self.cursos.append(CursoGratuito)
+
+
