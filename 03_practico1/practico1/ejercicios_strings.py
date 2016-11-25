@@ -183,8 +183,7 @@ def justificar(s):  # FALTA
 """ OOP """
 
 
-class Puerta(object):  # Ingresar combinacion por numero y cambiar aributos a
-    #  privado
+class Puerta(object):
     """
     Un cerrojo con combinación tiene las siguientes propiedades básicas:
     la combinación (una secuencia de tres números); el cerrojo se puede abrir
@@ -195,19 +194,22 @@ class Puerta(object):  # Ingresar combinacion por numero y cambiar aributos a
     abierta. La combinación debería asignarse en el constructor.
     """
 
-    def __init__(self, combinacion):
-        self.combinacion = combinacion
-        self.estado = "Abierta"
+    def __init__(self, c1, c2, c3):
+        clave = [c1, c2, c3]
+        self.__combinacion = clave
+        self.__estado = "Abierta"
 
     def cerrar(self):
-        self.estado = "Cerrada"
+        self.__estado = "Cerrada"
 
     def abrir(self):
-        self.estado = "Abierta"
+        self.__estado = "Abierta"
 
-    def cambiar_combinacion(self, comb_actual, comb_nueva):
-        if self.combinacion == comb_actual:
-            self.combinacion = comb_nueva
+    def cambiar_combinacion(self, c1, c2, c3, n1, n2, n3):
+        comb_actual = [c1, c2, c3]
+        comb_nueva = [n1, n2, n3]
+        if self.__combinacion == comb_actual:
+            self.__combinacion = comb_nueva
 
 
 """Jerarquia de Clases"""  # MEJOR IMPLEMENTACION
@@ -278,16 +280,46 @@ class Empleado(Persona):
     def agregar_curso(self, CursoGratuito):
         self.cursos.append(CursoGratuito)
 
-"""
-Triangulo
-Escriba una clase, triángulo, que represente un triángulo. La clase debe incluir
-los siguientes métodos que devuelven un valor lógico indicando el tipo del
-triángulo:
-es_rectangulo (para triángulos rectángulos)
-es_escaleno (todos los lados distintos)
-es_isosceles (dos lados iguales y el otro distinto)
-es_equilatero (los tres lados iguales)
-"""
+
+class Triangulo(object):
+    """
+    Triangulo
+    Escriba una clase, triángulo, que represente un triángulo. La clase debe incluir
+    los siguientes métodos que devuelven un valor lógico indicando el tipo del
+    triángulo:
+    es_rectangulo (para triángulos rectángulos)
+    es_escaleno (todos los lados distintos)
+    es_isosceles (dos lados iguales y el otro distinto)
+    es_equilatero (los tres lados iguales)
+    """
+
+    def __init__(self, l1, l2, l3):
+        self.l1 = l1
+        self.l2 = l2
+        self.l3 = l3
+
+    def es_rectangulo(self):
+        if round(self.l1 ** 2) == ((self.l2 ** 2) + (self.l3 ** 2)):
+            return True
+        elif round(self.l2 ** 2) == ((self.l1 ** 2) + (self.l3 ** 2)):
+            return True
+        elif round(self.l3 ** 2) == ((self.l1 ** 2) + (self.l2 ** 2)):
+            return True
+        else:
+            return False
+
+    def es_escaleno(self):
+        pass
+
+    def es_isosceles(self):
+        pass
+
+    def es_equilatero(self):
+        if self.l1 == self.l2 and self.l2 == self.l3:
+            return True
+        else:
+            return False
+
 
 """
 Una Persona
