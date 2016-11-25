@@ -18,6 +18,12 @@ def facturas(nro):
 
 
 def ambos(s):
+    """
+    Dado un string s, implementar la función ambos que devuelve un string
+    construido con los dos primeros y dos últimos caracteres. Por ejemplo,
+    aplicar ambos a ‘primavera’ devuelve ‘prra’. Si s posee menos de dos
+    caracteres, el resultado es el string vacío.
+    """
     cadena = s
     if len(s) < 2:
         cadena = ""
@@ -27,12 +33,24 @@ def ambos(s):
 
 
 def fix(s):
+    """
+    Dado un string s, implementar una función fix que reemplaza todas las
+    ocurrencias del primer caracter por ‘*’ a excepción de la primera
+    ocurrencia. Por ejemplo evaluar fix a la palabra ‘burbuja’ devuelve
+    ‘bur*uja’. Ayuda, estudiar la función replace.
+    """
     capital = s[:1]
     cadena = s[1:]
     return capital + cadena.replace(capital, "*", 1)
 
 
 def mezclar(a, b):
+    """
+    Dados dos strings a y b, implementar la función mezclar que devuelve el
+    string a y b separados por un espacio, excepto las primeros caracteres de
+    cada string que son intercambiados. Por ejemplo, mezclar(‘mix’, ‘pod’)
+    devuelve ‘pix mod’.
+    """
     separador = " "
     cadena1 = b[:1] + a[1:]
     cadena2 = a[:1] + b[1:]
@@ -42,9 +60,12 @@ def mezclar(a, b):
 """Listas"""
 
 
-def macheos(args):
+def macheos(args):  # No funciona
     """
-    No funciona
+    Implementar la función macheos que dada una lista de strings devuelve un
+    número representando la cantidad de strings que tienen más de dos
+    caracteres y cuyos últimos dos strings son iguales.
+    Nota: python no posee operador ++ pero += funciona.
     """
     h = args[:1]
     t = args[1:]
@@ -62,6 +83,13 @@ def macheos(args):
 
 
 def front_x(lista):
+    """
+    Dada una lista de strings, implementar la funcion front_x que devuelve una
+    lista ordenada exceptuando las palabras que comiencen con x, las cuales
+    deben ir al principio. Por ejemplo,
+    ['mix', 'xyz', 'apple', 'xanadu', 'aardvark'] devuelve
+    ['xanadu', 'xyz', 'aardvark', 'apple', 'mix']
+    """
     lista_a = lista
     lista_x = []
     for i, s in enumerate(lista_a):
@@ -74,7 +102,22 @@ def front_x(lista):
     return lista_x
 
 
+def sort_last(tupla):  # FALTA
+    """
+    Dada una lista de tuplas no vacias, implementar la funcion sort_last que
+    devuelve una lista con las tuplas ordenadas de forma incremental según el
+    último elemento de la tupla. Ejemplo: aplicar sort_last a
+    [(1, 7), (1, 3), (3, 4, 5), (2, 2)] devuelve
+    [(2, 2), (1, 3), (3, 4, 5), (1, 7)]
+    """
+    pass
+
+
 def tabla_de_multiplicar(nro):
+    """
+    Implementar la función tablas que dado un argumento nro, devuelve la tabla
+    de multiplicar de nro del 1 al 10.
+    """
     var = [nro * (x + 1) for x in xrange(10)]
     return var
 
@@ -82,7 +125,13 @@ def tabla_de_multiplicar(nro):
 """Diccionarios"""
 
 
-def mapeo(cadena):
+def mapeo(cadena):  # VER SI SE PUEDE ORDENAR POR VALOR
+    """
+    Implementar la función mapeo que toma un string y devuelve un diccionario
+    con cada caracter como clave y la posición del caracter como valor.
+    Ejemplo, evaluar mapeo a ‘cosa’ devuelve
+    {‘c’: 0, ‘o’:1, ‘s’:2, ‘a’: 3}
+    """
     dic = {}
     for i, s in enumerate(cadena):
         dic[s] = i
@@ -90,28 +139,61 @@ def mapeo(cadena):
 
 
 def busqueda_reversa(dic, nro):
+    """
+    Implementar la función busqueda_reversa que dado un diccionario y un objeto
+    cualquiera, permita buscar por valores de diccionarios en vez de claves.
+    Ejemplo:
+    d = {‘c’: 0, ‘o’:1, ‘s’:2, ‘a’: 3}
+    busqueda_reversa(d, 3)
+    ’a’
+    """
     for name, value in dic.iteritems():
         if value == nro:
             return name
 
 
-"""
-val = mapeo("cosa")
-print val
-print busqueda_reversa(val, 2)
-"""
+""" Tipos Combinados """
 
 
-def invitados(dic):
+def invitados(dic):  # NO FUNCIONA
+    """Imaginen que poseemos un diccionario de la forma nombre​ -> estado​
+    (clave -> valor), el estado representa si la persona cuyo nombre es nombre​
+    irá o no a tu cumpleaños, porejemplo:
+    invitados = {"María": "Asistirá", "Luis": "Asistirá",
+    "Ángel": "No asistirá", "Pedro": "Asistirá", "Carla": "No asistirá"}
+    Implementar la función invitados que devuelve solo aquellas personas que
+    asistirán al cumpleaños.
+    """
     dic_aux = dic
     for name, estado in dic_aux.iteritems():
         if estado == "No asistira":
             del dic_aux[name]
-    return  dic_aux
+    return dic_aux
 
 
-class Puerta(object):
-    """Una puerta"""
+def justificar(s):  # FALTA
+    """
+    Dado un string implementar la función justificar que fija la longitud de
+    cada línea en 80 caracteres y justifica cada línea.
+
+    """
+    pass
+
+
+""" OOP """
+
+
+class Puerta(object):  # Ingresar combinacion por numero y cambiar aributos a
+    #  privado
+    """
+    Un cerrojo con combinación tiene las siguientes propiedades básicas:
+    la combinación (una secuencia de tres números); el cerrojo se puede abrir
+    proporcionando la combinación; y la combinación se puede cambiar,
+    pero solamente por alguien que conoce la combinación actual.
+    Diseñe una clase con métodos abrir, cerrar y cambiar_combinacion, y
+    atributos para almacenar la combinación y el estado de la puerta, cerrada o
+    abierta. La combinación debería asignarse en el constructor.
+    """
 
     def __init__(self, combinacion):
         self.combinacion = combinacion
@@ -128,7 +210,15 @@ class Puerta(object):
             self.combinacion = comb_nueva
 
 
-"""Jerarquia de Clases"""
+"""Jerarquia de Clases"""  # MEJOR IMPLEMENTACION
+"""
+Establezca una jerarquía de clases que represente a los estudiantes de una
+universidad sabiendo que todos los estudiantes se caracterizan por un nombre y
+un número. Hay varios tipos de estudiantes: los estudiantes ocasionales, sean de
+cursos de verano o de cursos específicos (se matriculan de un curso determinado)
+, los que cursan solo una tecnicatura, licenciatura. Además, la universidad
+imparte cursos de especialización gratuitos para sus empleados.
+"""
 
 
 class Curso(object):
@@ -188,4 +278,27 @@ class Empleado(Persona):
     def agregar_curso(self, CursoGratuito):
         self.cursos.append(CursoGratuito)
 
+"""
+Triangulo
+Escriba una clase, triángulo, que represente un triángulo. La clase debe incluir
+los siguientes métodos que devuelven un valor lógico indicando el tipo del
+triángulo:
+es_rectangulo (para triángulos rectángulos)
+es_escaleno (todos los lados distintos)
+es_isosceles (dos lados iguales y el otro distinto)
+es_equilatero (los tres lados iguales)
+"""
 
+"""
+Una Persona
+Construya una estructura de clases que represente una serie de personas
+caracterizadas por el nombre (compuesto de nombre de pila y dos apellidos) y el
+número del DNI. Debe ser posible imprimir los datos completos de una persona y
+devolver el nombre o el DNI independientemente.
+"""
+"""
+Genelogia
+Modifique el ejemplo anterior para poder construir un árbol genealógico donde se
+establezca dinámicamente un vínculo que indique qué persona es el padre y cual
+la madre de una persona dada.
+"""
