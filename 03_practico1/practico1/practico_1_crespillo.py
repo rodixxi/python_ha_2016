@@ -116,7 +116,7 @@ def tabla_de_multiplicar(nro):
 """Diccionarios"""
 
 
-def mapeo(cadena):  # VER SI SE PUEDE ORDENAR POR VALOR
+def mapeo(cadena):
     """
     Implementar la función mapeo que toma un string y devuelve un diccionario
     con cada caracter como clave y la posición del caracter como valor.
@@ -146,7 +146,7 @@ def busqueda_reversa(dic, nro):
 """ Tipos Combinados """
 
 
-def invitados(dic):  # NO FUNCIONA
+def lista_invitados(dic):
     """Imaginen que poseemos un diccionario de la forma nombre​ -> estado​
     (clave -> valor), el estado representa si la persona cuyo nombre es nombre​
     irá o no a tu cumpleaños, porejemplo:
@@ -155,21 +155,21 @@ def invitados(dic):  # NO FUNCIONA
     Implementar la función invitados que devuelve solo aquellas personas que
     asistirán al cumpleaños.
     """
-    dic_aux = dic
-    for name, estado in dic_aux.iteritems():
-        if estado == "No asistira":
-            del dic_aux[name]
-    return dic_aux
+    asistentes = []
+    for name, estado in dic.iteritems():
+        if estado == "Asistirá":
+            asistentes.append(name)
+    return asistentes
 
 
-def justificar(text):  # FALTA
+def justificar(text): 
     """
     Dado un string implementar la función justificar que fija la longitud de
     cada línea en 80 caracteres y justifica cada línea.
     """
-    # text_clean = textwrap.dedent(text).strip()
-    # text_clean = textwrap.fill(text_clean, width=80)
-    text_clean = '{:{align}{width}}'.format(text, align='^', width='10')
+    line_len = 80
+    text_len = len(text)
+    text_clean = [text[i:i+line_len] for i in xrange(0, text_len, line_len)]
     return text_clean
 
 
