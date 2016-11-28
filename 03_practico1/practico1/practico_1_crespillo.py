@@ -92,7 +92,7 @@ def front_x(lista):
     return lista_x
 
 
-def sort_last(tupla):  # FALTA
+def sort_last(tuple1):
     """
     Dada una lista de tuplas no vacias, implementar la funcion sort_last que
     devuelve una lista con las tuplas ordenadas de forma incremental según el
@@ -100,7 +100,8 @@ def sort_last(tupla):  # FALTA
     [(1, 7), (1, 3), (3, 4, 5), (2, 2)] devuelve
     [(2, 2), (1, 3), (3, 4, 5), (1, 7)]
     """
-    pass
+    sorted_tuple = sorted(tuple1, key=lambda x: x[-1])
+    return sorted_tuple
 
 
 def tabla_de_multiplicar(nro):
@@ -162,7 +163,7 @@ def lista_invitados(dic):
     return asistentes
 
 
-def justificar(text): 
+def justificar(text):
     """
     Dado un string implementar la función justificar que fija la longitud de
     cada línea en 80 caracteres y justifica cada línea.
@@ -189,30 +190,29 @@ class Puerta(object):
 
     def __init__(self, c1, c2, c3):
         clave = [c1, c2, c3]
-        self.__combinacion = clave
-        self.__estado = "Abierta"
+        self._combinacion = clave
+        self._estado = "Abierta"
 
     def cerrar(self):
-        self.__estado = "Cerrada"
+        self._estado = "Cerrada"
 
     def abrir(self):
-        self.__estado = "Abierta"
+        self._estado = "Abierta"
 
     def cambiar_combinacion(self, c1, c2, c3, n1, n2, n3):
         comb_actual = [c1, c2, c3]
         comb_nueva = [n1, n2, n3]
-        if self.__combinacion == comb_actual:
-            self.__combinacion = comb_nueva
+        if self._combinacion == comb_actual:
+            self._combinacion = comb_nueva
 
 
-"""Jerarquia de Clases"""  # MEJOR IMPLEMENTACION
 """
 Establezca una jerarquía de clases que represente a los estudiantes de una
 universidad sabiendo que todos los estudiantes se caracterizan por un nombre y
-un número. Hay varios tipos de estudiantes: los estudiantes ocasionales, sean de
-cursos de verano o de cursos específicos (se matriculan de un curso determinado)
-, los que cursan solo una tecnicatura, licenciatura. Además, la universidad
-imparte cursos de especialización gratuitos para sus empleados.
+un número. Hay varios tipos de estudiantes: los estudiantes ocasionales, sean
+de cursos de verano o de cursos específicos (se matriculan de un curso
+determinado), los que cursan solo una tecnicatura, licenciatura. Además, la
+universidad imparte cursos de especialización gratuitos para sus empleados.
 """
 
 
@@ -223,18 +223,32 @@ class Curso(object):
         self.nombre = nombre
 
 
-class CursoVerano(Curso):
+class CursoOcasional(Curso):
+    """Un Curso Temporal"""
+
+    def __init__(self, nombre):
+        super(CursoOcasional, self).__init__(nombre)
+
+
+class CursoVerano(CursoOcasional):
     """Un Curso de Verano"""
 
     def __init__(self, nombre):
         super(CursoVerano, self).__init__(nombre)
 
 
-class CursoEspecifico(Curso):
+class CursoEspecifico(CursoOcasional):
     """Un Curso Especifico"""
 
     def __init__(self, nombre):
         super(CursoEspecifico, self).__init__(nombre)
+
+
+class CursoGratuito(Curso):
+    """Un Curso Gratuito"""
+
+    def __init__(self, nombre):
+        super(CursoGratuito, self).__init__(nombre)
 
 
 class Carrera(object):
@@ -247,17 +261,28 @@ class Carrera(object):
     def agregar_curso(self, curso):
         if isinstance(curso, Curso):
             self.cursos.append(curso)
+        else:
+            print "Esto no es un curso"
+
+    def eliminar_curso(self, curso):
+        if isinstance(curso, Curso):
+            self.cursos.remove(curso)
+        else:
+            print "Esto no es un curso"
 
 
-class Tecnicatura(object):
-    """Una """
-
-
-class CursoGratuito(Curso):
-    """Un Curso Gratuito"""
+class Tecnicatura(Carrera):
+    """Una Tecnicatira"""
 
     def __init__(self, nombre):
-        super(CursoGratuito, self).__init__(nombre)
+        super(Tecnicatura, self).__init__(nombre)
+
+
+class Licenciatura(Carrera):
+    """Una Carrera"""
+
+    def __init__(self, nombre):
+        super(Licenciatura, self).__init__(nombre)
 
 
 class Persona(object):
@@ -275,18 +300,34 @@ class Alumno(Persona):
         self.legajo = legajo
 
 
-class AlumnoTemporal(Alumno):
-    """Un Alumno Temporal"""
+class AlumnoOcasional(Alumno):
+    """Un Alumno Ocasional"""
 
     def __init__(self, nombre, legajo):
-        super(AlumnoTemporal, self).__init__(nombre, legajo)
+        super(AlumnoOcasional, self).__init__(nombre, legajo)
         self.cursos = []
 
-    def agregar_curso(self, curso_verano):
-        if isinstance(curso_verano, CursoVerano):
-            self.cursos.append(CursoVerano)
+    def agregar_curso(self, curso):
+        if isinstance(curso, CursoOcasional):
+            self.cursos.append(curso)
         else:
-            print "Esto no es un curso de verano"
+            print "Esto no es un curso para alumno temporal"
+
+
+class AlumnoCarreara(Alumno):
+    """Alumno que cursa una carrera"""
+
+    def __init__(self, nombre, legajo):
+        super(AlumnoCarreara, self).__init__(nombre, legajo)
+        self.carrera = ""
+        self.cursos = []
+
+    def agregar_carrera(self, carrera):
+        if isinstance(carrera, Carrera):
+            self.carrera = carrera.nombre
+            self.cursos = carrera.cursos
+        else:
+            print "Esto no es una carreara"
 
 
 class Empleado(Persona):
@@ -296,8 +337,11 @@ class Empleado(Persona):
         super(Empleado, self).__init__(nombre)
         self.cursos = []
 
-    def agregar_curso(self, CursoGratuito):
-        self.cursos.append(CursoGratuito)
+    def agregar_curso(self, curso_gratuito):
+        if isinstance(curso_gratuito, CursoGratuito):
+            self.cursos.append(curso_gratuito)
+        else:
+            print "Esto no es un curso gratuito"
 
 
 class Triangulo(object):
@@ -347,9 +391,62 @@ caracterizadas por el nombre (compuesto de nombre de pila y dos apellidos) y el
 número del DNI. Debe ser posible imprimir los datos completos de una persona y
 devolver el nombre o el DNI independientemente.
 """
+
+
+class Persona(object):
+    """Una Persona"""
+
+    def __init__(self, nombre, apellido1, apellido2, dni, sexo):
+        self._nombre = nombre
+        self._apellido1 = apellido1
+        self._apellido2 = apellido2
+        self._dni = dni
+        self._sexo = sexo
+
+    @property
+    def nombre(self):
+        return self._nombre
+
+    @property
+    def dni(self):
+        return self._dni
+
+    @property
+    def sexo(self):
+        return self._sexo
+
+    def __str__(self):
+        return "Nombre: " + self._nombre + \
+               "\nApellidos: " + self._apellido1 + " " + self._apellido2 + \
+               "\nDNI: " + str(self._dni)
+
 """
 Genelogia
-Modifique el ejemplo anterior para poder construir un árbol genealógico donde se
-establezca dinámicamente un vínculo que indique qué persona es el padre y cual
-la madre de una persona dada.
+Modifique el ejemplo anterior para poder construir un árbol genealógico donde
+se establezca dinámicamente un vínculo que indique qué persona es el padre y
+cual la madre de una persona dada.
 """
+
+
+class RelacionGeneologica(object):  # Implementar Diferente
+    """Una Relacion Geneologica"""
+
+    def __init__(self, padre, madre):
+        if isinstance(padre, Persona):
+            if padre.sexo == "M":
+                self._padre = padre
+            else:
+                print "Tiene que ser de sexo masculino"
+        else:
+            print "Tiene que ser una Persona"
+        if isinstance(madre, Persona):
+            if madre.sexo == "F":
+                self._madre = madre
+            else:
+                print "Tiene que ser de sexo femenino"
+        else:
+            print "Tiene que ser una Persona"
+
+    def __str__(self):
+        return "Padre: " + self._padre.nombre +\
+               "\nMadre: " + self._madre.nombre
