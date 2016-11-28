@@ -396,12 +396,11 @@ devolver el nombre o el DNI independientemente.
 class Persona(object):
     """Una Persona"""
 
-    def __init__(self, nombre, apellido1, apellido2, dni, sexo):
+    def __init__(self, nombre, apellido1, apellido2, dni):
         self._nombre = nombre
         self._apellido1 = apellido1
         self._apellido2 = apellido2
         self._dni = dni
-        self._sexo = sexo
 
     @property
     def nombre(self):
@@ -412,13 +411,18 @@ class Persona(object):
         return self._dni
 
     @property
-    def sexo(self):
-        return self._sexo
+    def apellido1(self):
+        return self._apellido1
+
+    @property
+    def apellido2(self):
+        return self._apellido2
 
     def __str__(self):
         return "Nombre: " + self._nombre + \
                "\nApellidos: " + self._apellido1 + " " + self._apellido2 + \
                "\nDNI: " + str(self._dni)
+
 
 """
 Genelogia
@@ -428,25 +432,21 @@ cual la madre de una persona dada.
 """
 
 
-class RelacionGeneologica(object):  # Implementar Diferente
-    """Una Relacion Geneologica"""
+class Arbol(object):
+    """Un Arbol Genealógico"""
 
-    def __init__(self, padre, madre):
-        if isinstance(padre, Persona):
-            if padre.sexo == "M":
-                self._padre = padre
-            else:
-                print "Tiene que ser de sexo masculino"
-        else:
-            print "Tiene que ser una Persona"
-        if isinstance(madre, Persona):
-            if madre.sexo == "F":
-                self._madre = madre
-            else:
-                print "Tiene que ser de sexo femenino"
-        else:
-            print "Tiene que ser una Persona"
+    def __init__(self):
+        self._familia = []
 
-    def __str__(self):
-        return "Padre: " + self._padre.nombre +\
-               "\nMadre: " + self._madre.nombre
+    def agregar_persona(self, persona):
+        if isinstance(persona, Persona):
+            self._familia.append(persona)
+
+    def buscar_padres(self, persona):
+        if isinstance(persona, Persona):
+            for padre in self._familia:
+                if padre.dni != persona.dni:
+                    if padre.apellido1 == persona.apellido1:
+                        print "Su padre es:\n" + padre.__str__()
+                    if padre.apellido1 == persona.apellido2:
+                        print "Su madre es:\n" + padre.__str__()
