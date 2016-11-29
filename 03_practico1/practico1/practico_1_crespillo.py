@@ -447,6 +447,6 @@ class Arbol(object):
             for padre in self._familia:
                 if padre.dni != persona.dni:
                     if padre.apellido1 == persona.apellido1:
-                        print "Su padre es:\n" + padre.__str__()
+                        print "Su padre es:\n" + padre.__str__()  # str(padre)
                     if padre.apellido1 == persona.apellido2:
                         print "Su madre es:\n" + padre.__str__()
