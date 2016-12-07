@@ -17,7 +17,7 @@ Se evalúa:
 
 ## Ejercicio 1
 
-Implementar un decorador `@thread` que al decorar una funcion
+Implementar un decorador `@concurrent` que al decorar una funcion
 hace que la ejecución de la misma sea hecha en un thread aparte.
 
 El cambio fundamental es que la función decorada no retorna lo mismo que
