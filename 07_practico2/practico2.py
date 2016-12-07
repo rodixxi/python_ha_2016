@@ -61,12 +61,45 @@ class Grupo(object):
     def __add__(self, other):
         if isinstance(other, Persona):
             return Grupo(list(itertools.chain(list(self.grupo), [other])))
+        if isinstance(other, Grupo):
+            return Grupo(list(self.grupo) + list(other.grupo - self.grupo))
 
     def __sub__(self, other):
         if isinstance(other, Persona):
             return Grupo(list(itertools.ifilterfalse(lambda x: x == other,
-                                                list(self.grupo))))
+                         list(self.grupo))))
+        if isinstance(other, Grupo):
+            return Grupo(list(self.grupo - other.grupo))
+
+    def __iter__(self):
+        for persona in self.grupo:
+            yield persona
+
+    def __len__(self):
+        return len(self.grupo)
+
+    def __nonzero__(self):
+        if len(self) > 0:
+            return True
+        else:
+            return False
 
     def __repr__(self):
         return "<Grupo '{} personas'>".format(len(self.grupo))
+
+    def edad_promedio(self):
+        if len(self) > 0:
+            acum = 0
+            for index, persona in enumerate(self.grupo):
+                acum += persona.edad
+                cont = index + 1
+            return acum/cont
+        else:
+            raise EmptyGroupError()
+
+
+class EmptyGroupError(ValueError):
+    def __init__(self):
+        super(EmptyGroupError, self).__init__("grupo vacio")
+
 
