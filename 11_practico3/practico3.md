@@ -23,8 +23,8 @@ hace que la ejecución de la misma sea hecha en un thread aparte.
 El cambio fundamental es que la función decorada no retorna lo mismo que
 la función base sino que retorna un objeto `Promise`. Promise es-un
 *thread* donde se ejecuto la función original, y además posee un método
-`get_result()` que retorna el valor final de la función que falla en caso del
-que thread no haya terminado.
+`get_result()` que retorna el valor final de la función, y que falla en caso de
+que el thread no haya terminado.
 
 ### Ejemplo:
 
