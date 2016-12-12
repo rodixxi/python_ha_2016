@@ -53,9 +53,9 @@ False
 - Dos grupos son iguales si tienen las mismas personas.
 
 ```python
->>> bool(Grupo({p0, p1}) != Grupo([p1, p0])
+>>> bool(Grupo({p0, p1}) != Grupo([p1, p0]))
 False
->>> bool(Grupo((p0, p1)) != Grupo([p2, p0])
+>>> bool(Grupo((p0, p1)) != Grupo([p2, p0]))
 True
 
 ```
