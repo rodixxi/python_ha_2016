@@ -12,6 +12,7 @@ def valid_date(s):
         msg = "No es una fecha valida: {0}.".format(s)
         raise argparse.ArgumentError(msg)
 
+
 parser = argparse.ArgumentParser(description="Diferecia entre dos fechas")
 
 parser.add_argument('--from',
